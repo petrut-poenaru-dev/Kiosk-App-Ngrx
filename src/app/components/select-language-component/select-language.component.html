@@ -1,0 +1,20 @@
+<div class="select-language-container">
+  <div class="titles">
+    <span class="select-language-title">TOUCH TO ORDER</span>
+    <span class="select-language-title romana">APASA PENTRU A COMANDA</span>
+  </div>
+  <div class="buttons">
+    <div class="button" (click)="selectLanguage(bundleSettings.languages[0].code)">
+      <span>
+        {{bundleSettings.languages[0].name}}
+      </span>
+    </div>
+    <div class="space-bar">
+    </div>
+    <div class="button" (click)="selectLanguage(bundleSettings.languages[1].code)">
+      <span *ngIf="bundleSettings.languages.length >= 1">
+        {{bundleSettings.languages[1].name}}
+      </span>
+    </div>
+  </div>
+</div>

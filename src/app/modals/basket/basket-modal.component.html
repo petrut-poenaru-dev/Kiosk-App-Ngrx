@@ -1,0 +1,38 @@
+<div class="modal-backdrop">
+  <div class="modal-container">
+    <div class="modal-content">
+      <span class="close-modal" (click)="closeModal()">x</span>
+      <h1 class="title">{{'Basket-title' | translate}}</h1>
+      <div class="basket" *ngIf="basket.length; else noBasketProduct">
+        <div class="basket-item" *ngFor="let product of basket ; let i = index">
+          <div class="basket-item-content">
+            <span class="delete-basket-item" (click)="openDeleteFromBasketModal(product.id)">x</span>
+            <img [src]="product.img" alt="">
+            <div class="title-and-ingredients">
+              <span class="title">{{product.title | translate}}</span>
+              <span class="ingredients">{{product.ingredients | translate}}</span>
+            </div>
+            <span class="price">{{(product.price * product.quantity) | priceFormat}} lei</span>
+          </div>
+          <div class="quantity">
+            <span [class.disabled]="product.quantity === 1" class="quantity-btn" (click)="decreaseQuantity(i)">-</span>
+            <span>{{product.quantity}}</span>
+            <span class="quantity-btn" (click)="increaseQuantity(i)">+</span>
+          </div>
+        </div>
+        <h1>Total : {{totalPrice | priceFormat}} lei</h1>
+      </div>
+      <div class="buttons">
+        <div class="add-one" (click)="addNow()" *ngIf="basket.length === 0">{{'Add-now' | translate}}</div>
+        <div class="close" *ngIf="basket.length !== 0"
+             (click)="openCancelOrderModal()">{{'Cancel-order' | translate}}</div>
+        <div class="add-one" *ngIf="basket.length !== 0" (click)="goToPay()">{{'Pay' | translate}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noBasketProduct>
+  <div class="no-basket">
+    <span style="font-size: 18px;">{{'No-basket-products' | translate}}</span>
+  </div>
+</ng-template>

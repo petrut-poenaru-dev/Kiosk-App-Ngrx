@@ -1,0 +1,35 @@
+.order-number-container {
+  background-image: url("../../../assets/images/banner.png");
+  width: 1080px;
+  height: 1920px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-size: cover;
+  background-repeat: no-repeat;
+  gap: 150px;
+
+  .title {
+    font-size: 80px;
+    color: var(--color-white);
+  }
+
+  .order-number-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .order-number-title {
+      font-size: 50px;
+      color: var(--color-white);
+    }
+
+    .order-number {
+      color: #000;
+      font-size: 70px;
+      font-weight: 600;
+    }
+  }
+}

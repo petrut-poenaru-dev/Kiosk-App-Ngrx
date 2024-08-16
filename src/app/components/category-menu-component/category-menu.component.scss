@@ -1,0 +1,89 @@
+.category-section-container {
+  width: 1080px;
+  height: 1920px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-size: cover;
+  background-repeat: no-repeat;
+  gap: 20px;
+
+  .category-section-title {
+    font-size: 100px;
+    color: var(--color-white);
+    text-align: center;
+    margin-bottom: 130px;
+
+    &.isCoffee {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    height: 80%;
+
+    .button {
+      width: 40%;
+      display: flex;
+      gap: 10px;
+      padding: 22px;
+      align-items: center;
+      flex-direction: column;
+      background: var(--color-white);
+      cursor: pointer;
+
+      img {
+        width: 260px;
+        height: 260px;
+      }
+
+      .button-title {
+        font-size: 20px;
+        font-weight: 500;
+      }
+
+      .button-ingredients {
+        font-size: 14px;
+      }
+
+      .button-weight {
+        align-self: flex-end;
+      }
+
+      .button-price {
+        font-size: 32px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .action-buttons {
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .back-button {
+      padding-left: 32px;
+      color: var(--color-white);
+      font-size: 32px;
+      cursor: pointer;
+    }
+
+    .show-basket-button {
+      padding-right: 32px;
+      color: var(--color-white);
+      font-size: 32px;
+      cursor: pointer;
+    }
+  }
+}

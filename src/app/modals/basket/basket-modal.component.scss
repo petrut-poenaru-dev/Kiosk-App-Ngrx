@@ -1,0 +1,109 @@
+h1 {
+  text-align: center;
+}
+
+.close {
+  padding: 16px;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid black;
+  background: white;
+}
+
+.no-basket {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  width: 100%;
+
+  .add-one {
+    background: blue;
+    color: var(--color-white);
+    padding: 16px;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+}
+
+.basket {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  &-item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+
+    .basket-item-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      position:relative;
+
+      .delete-basket-item{
+        position: absolute;
+        top:0px;
+        right: 5px;
+        font-size: 20px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .title-and-ingredients {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        .title {
+          font-weight: bold;
+          font-size: 18px;
+        }
+      }
+    }
+
+    .quantity {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 24px;
+      font-weight: 500;
+      width: 100%;
+      padding: 0px 80px;
+      .quantity-btn{
+        cursor: pointer;
+        &.disabled{
+          cursor: not-allowed;
+          color:grey;
+        }
+      }
+    }
+
+    .price {
+      font-size: 28px;
+      font-weight: 600;
+    }
+  }
+}

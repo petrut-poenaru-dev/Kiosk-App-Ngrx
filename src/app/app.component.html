@@ -1,0 +1,7 @@
+<div class="app-container">
+  <router-outlet></router-outlet>
+</div>
+<app-product-details *ngIf="isOpenProductDetailsModal$ | async"></app-product-details>
+<app-basket-modal *ngIf="isOpenBasketModal$ | async"></app-basket-modal>
+<app-cancel-order-modal *ngIf="isOpenCancelOrderModal$ | async"></app-cancel-order-modal>
+<app-delete-basket-product *ngIf="isOpenDeleteBasketProductModal$ | async"></app-delete-basket-product>

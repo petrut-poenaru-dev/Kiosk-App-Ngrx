@@ -1,0 +1,49 @@
+.payment-menu-container{
+  background-image: url("../../../assets/images/banner-2.png");
+  width: 1080px;
+  height: 1920px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-size: cover;
+  background-repeat: no-repeat;
+  gap: 150px;
+  .title{
+    font-size: 100px;
+    color:var(--color-white);
+  }
+  .buttons{
+    display: flex;
+    align-items: center;
+    gap: 100px;
+
+    div {
+      padding: 32px;
+      font-size: 22px;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 20px;
+
+      &.pay-with-card {
+        background: blue;
+        color: var(--color-white);
+        &:hover{
+          background: var(--color-white);
+          color:blue;
+        }
+      }
+
+      &.pay-here {
+        border:1px solid black;
+        color:black;
+        background: white;
+        &:hover{
+          background: black;
+          color:var(--color-white);
+          border:1px solid var(--color-white);
+        }
+      }
+    }
+  }
+}

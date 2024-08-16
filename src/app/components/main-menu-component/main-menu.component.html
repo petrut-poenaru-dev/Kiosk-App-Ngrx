@@ -1,0 +1,9 @@
+<div class="main-menu-container">
+  <span class="main-menu-title">{{"menu-title" | translate}}</span>
+  <div class="buttons">
+    <div class="section" (click)="goToSection(section)" *ngFor="let section of mainSections; let i = index">
+      <span class="section-title">{{section | translate}}</span>
+      <span class="section-icon {{icons[i]}}"></span>
+    </div>
+  </div>
+</div>

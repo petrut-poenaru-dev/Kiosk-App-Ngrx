@@ -1,0 +1,18 @@
+<div class="category-section-container" [style.background-image]="'url(' + categorySection.img + ')'">
+  <div class="category-section-title" [class.isCoffee]="isCoffeePage">
+    {{categorySection.title | translate}}
+  </div>
+  <div class="buttons-container">
+    <div class="button" (click)="openProductDetailsModal(categorySection.title , button.id)" *ngFor="let button of categorySection.buttons">
+      <img [src]="button.img" alt="">
+      <span class="button-title">{{button.title | translate}}</span>
+      <span class="button-ingredients">{{button.ingredients | translate}}</span>
+      <span class="button-weight">{{button.weight | translate}}</span>
+      <span class="button-price">{{button.price | priceFormat}} lei</span>
+    </div>
+  </div>
+  <div class="action-buttons">
+    <div class="back-button" (click)="backToMenu()">< {{'Back' | translate}}</div>
+    <div class="show-basket-button" (click)="openBasket()">{{'Show-Basket' | translate}}</div>
+  </div>
+</div>
