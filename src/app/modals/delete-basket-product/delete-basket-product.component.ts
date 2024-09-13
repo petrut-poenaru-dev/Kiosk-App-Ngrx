@@ -1,8 +1,10 @@
 import {Component, HostListener} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {ModalService} from "../../services/modal.service";
 import {Router} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
+import {Store} from "@ngrx/store";
+import {AppStateInterface} from "../../store/app.reducer";
+import {closeRemoveProductFromBasketModal, removeProductFromBasket} from "../../store/app.actions";
 
 @Component({
   selector:'app-delete-basket-product',
@@ -12,7 +14,7 @@ import {TranslateModule} from "@ngx-translate/core";
   imports:[CommonModule , TranslateModule]
 })
 export class DeleteBasketProductComponent{
-  constructor(private _modalService:ModalService , private _router:Router) {}
+  constructor( private _router:Router , private _store:Store<AppStateInterface>) {}
 
   @HostListener('document:keydown', ['$event'])
   public onKeyDown(event: KeyboardEvent): void {
@@ -22,15 +24,14 @@ export class DeleteBasketProductComponent{
   }
 
   public closeModal(): void{
-    this._modalService.closeModal();
+    this._store.dispatch(closeRemoveProductFromBasketModal());
   }
 
   public deleteProduct(){
-    this._modalService.removeProductFromBasket();
-    this.closeModal();
+    this._store.dispatch(removeProductFromBasket());
   }
 
   public dontDeleteProduct(){
-    this._modalService.closeModal();
+    this.closeModal();
   }
 }

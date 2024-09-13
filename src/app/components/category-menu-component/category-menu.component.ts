@@ -6,7 +6,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
 import {categoryInitialization} from "../../helpers/app-initializations";
 import {PriceFormatPipe} from "../../pipes/price-format.pipe";
-import {ModalService} from "../../services/modal.service";
+import {Store} from "@ngrx/store";
+import {appActions} from "../../store/index";
 
 @Component({
   selector: 'app-category-menu',
@@ -20,7 +21,7 @@ export class CategoryMenuComponent {
   public isCoffeePage = false;
   public title = '';
 
-  constructor(private _appService: AppService, private _modalService:ModalService , private route: ActivatedRoute , private _router:Router) {
+  constructor(private _appService: AppService , private route: ActivatedRoute , private _router:Router , private _store:Store) {
   }
 
   public ngOnInit() {
@@ -40,11 +41,11 @@ export class CategoryMenuComponent {
   }
 
   public openProductDetailsModal(category:string , id:number){
-    this._modalService.openProductDetailsModal(category , id);
+    this._store.dispatch(appActions.openProductDetailsModal({category, id}))
   }
 
   public openBasket(){
-    this._modalService.openBasketModal();
+    this._store.dispatch(appActions.openBasketModal())
   }
 
   public backToMenu(){

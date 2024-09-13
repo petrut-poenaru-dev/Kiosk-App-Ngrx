@@ -1,10 +1,19 @@
-import {Component, HostListener, OnInit} from "@angular/core";
+import {Component, HostListener, OnDestroy, OnInit} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {CategoryProductInterface} from "../../interfaces/category-product.interface";
-import {ModalService} from "../../services/modal.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {PriceFormatPipe} from "../../pipes/price-format.pipe";
 import {Router} from "@angular/router";
+import {AppStateInterface} from "../../store/app.reducer";
+import {Store} from "@ngrx/store";
+import {
+  closeAllModals,
+  decreaseProductQuantity,
+  increaseProductQuantity, openCancelOrderModal,
+  openRemoveProductFromBasketModal
+} from "../../store/app.actions";
+import {selectBasket, selectTotalPrice} from "../../store/app.selectors";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-basket-modal',
@@ -13,11 +22,14 @@ import {Router} from "@angular/router";
   standalone: true,
   imports: [CommonModule, TranslateModule, PriceFormatPipe]
 })
-export class BasketModalComponent implements OnInit {
-  public basket!: Array<CategoryProductInterface>;
-  public totalPrice: number = 0;
+export class BasketModalComponent implements OnInit, OnDestroy {
+  public basket!: Array<CategoryProductInterface>
+  public totalPriceSubs!: number;
+  public basket$ = this._store.select(selectBasket)
+  public totalPrice$ = this._store.select(selectTotalPrice)
+  public destroy$: Subject<void> = new Subject<void>();
 
-  constructor(private _modalService: ModalService, private _router: Router) {
+  constructor(private _router: Router, private _store: Store<AppStateInterface>) {
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -27,37 +39,36 @@ export class BasketModalComponent implements OnInit {
     }
   }
 
-  public closeModal(): void{
-    this._modalService.closeModal();
+  public closeModal(): void {
+    this._store.dispatch(closeAllModals());
   }
 
   ngOnInit(): void {
-    this._modalService.basket$.subscribe(basket => {
+    this.basket$.pipe(takeUntil(this.destroy$)).subscribe(basket => {
       this.basket = basket;
-      basket.forEach(item => {
-        this.totalPrice += (item.price * item.quantity);
-      })
+    })
+    this.totalPrice$.pipe(takeUntil(this.destroy$)).subscribe(totalPrice => {
+      this.totalPriceSubs = totalPrice;
     })
   }
 
-  public openDeleteFromBasketModal(productId:number): void{
-    this._modalService.openDeleteProductModal(productId);
+  public openDeleteFromBasketModal(productId: number): void {
+    this._store.dispatch(openRemoveProductFromBasketModal({productId: productId}))
   }
 
-  public increaseQuantity(index:number): void{
-    this.basket[index].quantity++;
-    this.totalPrice += this.basket[index].price;
+  public increaseQuantity(productId: number, productPrice: number): void {
+    this._store.dispatch(increaseProductQuantity({productId: productId, productPrice: productPrice}))
   }
 
-  public decreaseQuantity(index:number): void{
-    if(this.basket[index].quantity !== 1) {
-      this.basket[index].quantity--;
-      this.totalPrice -= this.basket[index].price;
+  public decreaseQuantity(productId: number, productPrice: number, productQuantity: number): void {
+    if (productQuantity <= 1) {
+      return;
     }
+    this._store.dispatch(decreaseProductQuantity({productId: productId, productPrice: productPrice}))
   }
 
   public openCancelOrderModal(): void {
-    this._modalService.openCancelOrderModal();
+    this._store.dispatch(openCancelOrderModal());
   }
 
   public addNow() {
@@ -65,8 +76,13 @@ export class BasketModalComponent implements OnInit {
     this.closeModal();
   }
 
-  public goToPay(){
+  public goToPay() {
     this._router.navigate(['/payment-menu']).then();
     this.closeModal();
+  }
+
+  public ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

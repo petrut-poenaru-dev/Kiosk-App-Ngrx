@@ -1,8 +1,10 @@
 import {Component, HostListener} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {ModalService} from "../../services/modal.service";
 import {TranslateModule} from "@ngx-translate/core";
 import {Router} from "@angular/router";
+import {AppStateInterface} from "../../store/app.reducer";
+import {Store} from "@ngrx/store";
+import {cancelOrder, closeCancelOrderModal} from "../../store/app.actions";
 
 @Component({
   selector:'app-cancel-order-modal',
@@ -13,7 +15,7 @@ import {Router} from "@angular/router";
 })
 export class CancelOrderModalComponent{
 
-  constructor(private _modalService:ModalService , private _router:Router) {}
+  constructor(private _router:Router , private _store:Store<AppStateInterface>) {}
 
   @HostListener('document:keydown', ['$event'])
   public onKeyDown(event: KeyboardEvent): void {
@@ -23,15 +25,15 @@ export class CancelOrderModalComponent{
   }
 
   public closeModal(): void{
-    this._modalService.closeModal();
+    this._store.dispatch(closeCancelOrderModal());
   }
 
   public cancelOrder(){
-      this._modalService.cancelOrder();
-      this._router.navigate(['']);
+    this._store.dispatch(cancelOrder());
+    this._router.navigate(['']);
   }
 
   public dontCancel(){
-    this._modalService.closeModal();
+    this.closeModal();
   }
 }
