@@ -3,8 +3,8 @@ import {CommonModule} from "@angular/common";
 import {Router} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
 import {Store} from "@ngrx/store";
-import {AppStateInterface} from "../../store/app.reducer";
 import {closeRemoveProductFromBasketModal, removeProductFromBasket} from "../../store/app.actions";
+import {StoreStateInterface} from "../../store/index";
 
 @Component({
   selector:'app-delete-basket-product',
@@ -14,7 +14,7 @@ import {closeRemoveProductFromBasketModal, removeProductFromBasket} from "../../
   imports:[CommonModule , TranslateModule]
 })
 export class DeleteBasketProductComponent{
-  constructor( private _router:Router , private _store:Store<AppStateInterface>) {}
+  constructor( private _router:Router , private _store: Store<StoreStateInterface>) {}
 
   @HostListener('document:keydown', ['$event'])
   public onKeyDown(event: KeyboardEvent): void {

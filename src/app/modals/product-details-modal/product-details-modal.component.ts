@@ -6,10 +6,9 @@ import {CommonModule} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
 import {PriceFormatPipe} from "../../pipes/price-format.pipe";
 import {selectProductCategory, selectProductId} from "../../store/app.selectors";
-import {AppStateInterface} from "../../store/app.reducer";
 import {Store} from "@ngrx/store";
 import {combineLatest, map, switchMap} from "rxjs";
-import {appActions} from "../../store/index";
+import {appActions, StoreStateInterface} from "../../store/index";
 
 @Component({
   selector: 'app-product-details',
@@ -24,7 +23,7 @@ export class ProductDetailsModalComponent implements OnInit {
   public product!: CategoryProductInterface;
   public categorySection!: ProductsInterface;
 
-  constructor(private _appService: AppService , private _store:Store<AppStateInterface>) {
+  constructor(private _appService: AppService , private _store:Store<StoreStateInterface>) {
   }
 
   @HostListener('document:keydown', ['$event'])

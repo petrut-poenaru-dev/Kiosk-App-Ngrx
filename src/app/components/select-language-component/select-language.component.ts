@@ -18,7 +18,7 @@ export class SelectLanguageComponent {
   constructor(private _translate: TranslateService, private _appService: AppService, private _router: Router) {
   }
 
-  public bundleSettings: BundleSettingsInterface = {languages: [{code: "", name: ""}, {code: "", name: ""}]}
+  public bundleSettings!: BundleSettingsInterface;
 
   ngOnInit() {
     this.getBundleSettings();

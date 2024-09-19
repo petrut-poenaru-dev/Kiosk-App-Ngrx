@@ -1,4 +1,5 @@
 <div class="app-container">
+  <h1>WARNING TIMER : {{(warningTimer | async) | json}}</h1>
   <router-outlet></router-outlet>
 </div>
 <app-product-details *ngIf="isOpenProductDetailsModal$ | async"></app-product-details>

@@ -1,3 +1,5 @@
 export interface BundleSettingsInterface{
-  languages:Array<{code:string , name:string}>
+  languages:Array<{code:string , name:string}>,
+  inactivityWarningTimer: number,
+  inactivityCloseTimer: number
 }

@@ -13,8 +13,9 @@ import {
   selectIsOpenCancelOrderModal, selectIsOpenDeleteBasketProductModal,
   selectIsOpenProductDetailsModal
 } from "./store/app.selectors";
-import {AppStateInterface} from "./store/app.reducer";
-import {appActions} from "./store/index";
+import {appActions, StoreStateInterface} from "./store/index";
+import {settingsActions} from "./settings/index";
+import {selectInactivityWarningTimer, selectLanguage} from "./settings/settings.selectors";
 
 @Component({
   selector: 'app-root',
@@ -31,14 +32,18 @@ export class AppComponent implements OnInit{
   public isOpenBasketModal$ = this._store.select(selectIsOpenBasketModal);
   public isOpenCancelOrderModal$ = this._store.select(selectIsOpenCancelOrderModal);
   public isOpenDeleteBasketProductModal$ = this._store.select(selectIsOpenDeleteBasketProductModal);
+  public warningTimer = this._store.select(selectInactivityWarningTimer);
 
-  constructor(private _appService:AppService , private translate: TranslateService , private _store:Store<AppStateInterface>) {
+  constructor(private _appService:AppService , private translate: TranslateService , private _store: Store<StoreStateInterface>) {
     translate.setDefaultLang('en');
     translate.use('en');
   }
 
   ngOnInit(): void {
     this._store.dispatch(appActions.initApp());
+    this._appService.getBundleSettings().subscribe(settings => {
+      this._store.dispatch(settingsActions.getBundleSettings({settings}));
+    })
   }
 
 }

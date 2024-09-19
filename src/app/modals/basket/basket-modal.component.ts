@@ -4,7 +4,6 @@ import {CategoryProductInterface} from "../../interfaces/category-product.interf
 import {TranslateModule} from "@ngx-translate/core";
 import {PriceFormatPipe} from "../../pipes/price-format.pipe";
 import {Router} from "@angular/router";
-import {AppStateInterface} from "../../store/app.reducer";
 import {Store} from "@ngrx/store";
 import {
   closeAllModals,
@@ -14,6 +13,7 @@ import {
 } from "../../store/app.actions";
 import {selectBasket, selectTotalPrice} from "../../store/app.selectors";
 import {Subject, takeUntil} from "rxjs";
+import {StoreStateInterface} from "../../store/index";
 
 @Component({
   selector: 'app-basket-modal',
@@ -29,7 +29,7 @@ export class BasketModalComponent implements OnInit, OnDestroy {
   public totalPrice$ = this._store.select(selectTotalPrice)
   public destroy$: Subject<void> = new Subject<void>();
 
-  constructor(private _router: Router, private _store: Store<AppStateInterface>) {
+  constructor(private _router: Router, private _store: Store<StoreStateInterface>) {
   }
 
   @HostListener('document:keydown', ['$event'])
