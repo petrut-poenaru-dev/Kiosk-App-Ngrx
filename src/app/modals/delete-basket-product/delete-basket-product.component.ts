@@ -7,7 +7,7 @@ import {closeRemoveProductFromBasketModal, removeProductFromBasket} from "../../
 import {StoreStateInterface} from "../../store/index";
 
 @Component({
-  selector:'app-delete-basket-product',
+  selector:'app-delete-basket-product-modal',
   templateUrl:'delete-basket-product.component.html',
   styleUrls:['delete-basket-product.component.scss'],
   standalone:true,

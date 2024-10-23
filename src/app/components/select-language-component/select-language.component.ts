@@ -1,10 +1,13 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {TranslateService} from "@ngx-translate/core";
 import {AppService} from "../../services/app.service";
 
 import {Router} from "@angular/router";
-import {BundleSettingsInterface} from "../../interfaces/bundle-settings.interface";
+import {Subject, takeUntil} from "rxjs";
+import {Store} from "@ngrx/store";
+import {StoreStateInterface} from "../../store/index";
+import {selectLanguage} from "../../settings/settings.selectors";
 
 @Component({
   selector: 'app-select-language',
@@ -13,21 +16,22 @@ import {BundleSettingsInterface} from "../../interfaces/bundle-settings.interfac
   standalone: true,
   imports: [CommonModule]
 })
-export class SelectLanguageComponent {
-
-  constructor(private _translate: TranslateService, private _appService: AppService, private _router: Router) {
+export class SelectLanguageComponent implements OnInit{
+  private _destroy$:Subject<void> = new Subject<void>()
+  public languagesObs$ = this._store.select(selectLanguage);
+  public languages!:Array<{code:string , name:string}>;
+  constructor(private _translate: TranslateService, private _appService: AppService, private _router: Router , private _store:Store<StoreStateInterface>) {
   }
 
-  public bundleSettings!: BundleSettingsInterface;
-
-  ngOnInit() {
-    this.getBundleSettings();
-  }
-
-  public getBundleSettings(): void {
-    this._appService.getBundleSettings().subscribe(response => {
-      this.bundleSettings = response;
+  public ngOnInit(): void {
+    this.languagesObs$.pipe(takeUntil(this._destroy$)).subscribe(languages => {
+      this.languages = languages
     })
+  }
+
+  public ngOnDestroy(): void {
+    this._destroy$.next()
+    this._destroy$.complete()
   }
 
   public selectLanguage(language: string): void {

@@ -66,6 +66,9 @@
   "Pay-here": "Pay at the cash register",
   "Pay-with-card": "Pay with card",
   "Order-number": "Order number",
-  "Thanks": "Thanks for your order"
-
+  "Thanks": "Thanks for your order",
+  "Activity-title": "Are you still here ?",
+  "Activity-message": "If you don't interact with KIOSK screen , your session will end in :",
+  "Cancel-exit": "Cancel & Exit",
+  "Continue-session": "Continue session"
 }

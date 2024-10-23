@@ -1,0 +1,58 @@
+
+
+.modal-content img {
+  max-width: 100%;
+  border-radius: 10px;
+  width: 500px;
+  height: 500px;
+}
+
+.modal-content .title,.counter {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+
+.modal-content .ingredients,
+.modal-content .weight,
+.modal-content .price {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.modal-content .weight {
+  align-self: flex-end;
+}
+
+.modal-content .price {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.modal-content .buttons {
+  width: 100%;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  div {
+    padding: 16px;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 20px;
+
+    &.close {
+      background: white;
+      border: 1px solid black;
+    }
+
+    &.add-to-basket {
+      background: blue;
+      color: white;
+      border: 1px solid white;
+    }
+  }
+}

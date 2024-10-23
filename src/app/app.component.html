@@ -1,8 +1,8 @@
 <div class="app-container">
-  <h1>WARNING TIMER : {{(warningTimer | async) | json}}</h1>
   <router-outlet></router-outlet>
 </div>
-<app-product-details *ngIf="isOpenProductDetailsModal$ | async"></app-product-details>
-<app-basket-modal *ngIf="isOpenBasketModal$ | async"></app-basket-modal>
-<app-cancel-order-modal *ngIf="isOpenCancelOrderModal$ | async"></app-cancel-order-modal>
-<app-delete-basket-product *ngIf="isOpenDeleteBasketProductModal$ | async"></app-delete-basket-product>
+<app-product-details-modal *ngIf="showProductDetailsModal$ | async"></app-product-details-modal>
+<app-basket-modal *ngIf="showBasketModal$ | async"></app-basket-modal>
+<app-cancel-order-modal *ngIf="showCancelOrderModal$ | async"></app-cancel-order-modal>
+<app-delete-basket-product-modal *ngIf="showDeleteBasketProductModal$ | async"></app-delete-basket-product-modal>
+<app-activity-modal *ngIf="showActivityModal$ | async"></app-activity-modal>

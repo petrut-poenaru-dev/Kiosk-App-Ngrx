@@ -66,5 +66,9 @@
   "Pay-here": "Plateste la casa de marcat",
   "Pay-with-card": "Plateste cu cardul",
   "Order-number": "Numarul comenzii",
-  "Thanks": "Multumim pentru comanda efectuata"
+  "Thanks": "Multumim pentru comanda efectuata",
+  "Activity-title": "Esti inca aici ?",
+  "Activity-message": "Daca nu interactionezi cu ecranul KIOSK , sesiunea ta se va inchide in:",
+  "Cancel-exit": "Anulare & Iesire",
+  "Continue-session": "Continuati sesiunea"
 }

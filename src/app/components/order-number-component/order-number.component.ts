@@ -5,6 +5,7 @@ import {AppService} from "../../services/app.service";
 import {Router, RouterModule} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {appActions, StoreStateInterface} from "../../store/index";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector:'app-order-number',
@@ -15,12 +16,12 @@ import {appActions, StoreStateInterface} from "../../store/index";
 })
 export class OrderNumberComponent implements OnInit{
   public orderNumber:number = 0;
-
+  private _destroy$:Subject<void> = new Subject<void>()
   constructor(private _appService:AppService , private _router:Router , private _store: Store<StoreStateInterface>) {
   }
 
   ngOnInit(): void {
-    this._appService.getOrderNumber().subscribe(orderNumber => {
+    this._appService.getOrderNumber().pipe(takeUntil(this._destroy$)).subscribe(orderNumber => {
       this.orderNumber = orderNumber;
     })
     setTimeout(() => {
@@ -29,4 +30,8 @@ export class OrderNumberComponent implements OnInit{
     } , 3000)
   }
 
+  ngOnDestroy(): void {
+    this._destroy$.next()
+    this._destroy$.complete()
+  }
 }
