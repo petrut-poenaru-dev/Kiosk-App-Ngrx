@@ -5,6 +5,7 @@ import {Features} from "./features";
 import {BundleSettingsInterface} from "../interfaces/bundle-settings.interface";
 import {settingsReducer} from "../settings/settings.reducer";
 import {SettingsEffects} from "../settings/settings.effects";
+import {AppEffects} from "./app.effects";
 
 export { appActions , appSelectors };
 
@@ -18,4 +19,4 @@ export const reducers = {
   [Features.settings]: settingsReducer,
 };
 
-export const effects = [SettingsEffects];
+export const effects = [SettingsEffects , AppEffects];

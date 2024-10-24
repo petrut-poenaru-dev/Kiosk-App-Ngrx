@@ -19,6 +19,7 @@ import {
   selectShowDeleteBasketProductModal,
   selectShowProductDetailsModal
 } from "./store/app.selectors";
+import {UserActivityService} from "./services/user-activity.service";
 
 const COMPONENTS = [ProductDetailsModalComponent , BasketModalComponent , CancelOrderModalComponent , DeleteBasketProductComponent , ActivityModalComponent]
 
@@ -36,66 +37,16 @@ export class AppComponent implements OnInit , OnDestroy{
   public showCancelOrderModal$ = this._store.select(selectShowCancelOrderModal);
   public showDeleteBasketProductModal$ = this._store.select(selectShowDeleteBasketProductModal);
   public showActivityModal$ = this._store.select(selectShowActivityModal);
-  public warningTimer = this._store.select(selectInactivityWarningTimer);
-  public isIdle$:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public userActivity:any;
   private _destroy$:Subject<void> = new Subject<void>();
-  constructor(private _appService:AppService , private _store: Store<StoreStateInterface> , private _router:Router) {}
-
-  @HostListener('window:mousemove') mouseMove() {
-    this.isIdle$.next(false);
-    clearTimeout(this.userActivity);
-    this.startInterval()
-  }
-
-  @HostListener('keydown') keyboardClick() {
-    this.isIdle$.next(false);
-    clearTimeout(this.userActivity);
-    this.startInterval()
-  }
-
-  @HostListener('touchstart') screenTouched() {
-    this.isIdle$.next(false);
-    clearTimeout(this.userActivity);
-    this.startInterval()
-  }
-
-  @HostListener('touchmove') screenDragged() {
-    this.isIdle$.next(false);
-    clearTimeout(this.userActivity);
-    this.startInterval()
-  }
+  constructor(private _appService:AppService, private _userActivityService:UserActivityService, private _store: Store<StoreStateInterface> , private _router:Router) {}
 
   public ngOnInit(): void {
+    this._userActivityService.initUserActivityListener()
     this._store.dispatch(appActions.initApp());
-    this.startInterval()
-  }
-
-  public startInterval(): void{
-    if(this._router.url !== '/language' && this._router.url !== '/payment')
-      this.interval();
-  }
-
-  public interval(): void{
-    this.warningTimer.pipe(takeUntil(this._destroy$)).subscribe(value => {
-      if(value !== 0){
-       this.userActivity = setTimeout(() => {
-          this.isIdle$.next(true);
-          this.openActivityModal();
-        },value)
-      }
-    })
-  }
-
-  public openActivityModal(): void{
-    if(this.isIdle$.value){
-      this._store.dispatch(openActivityModal());
-    }
   }
 
   public ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
-    clearTimeout(this.userActivity);
   }
 }
